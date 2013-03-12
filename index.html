@@ -3,25 +3,27 @@
     <head>
         <title>Local form persistance</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
-            <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
 
-            <script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20110223/json2.js"></script>
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-            <script src="jStorage/jstorage.js"></script>
-            <script src="stayingalive.js"></script>
-            <script>
-                $(document).ready(function() {
-                    //$('#textarea1').stayingAlive();
-                    //$('#input1').stayingAlive();
-                    $('#form1').stayAlive();
-                });
-            </script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20110223/json2.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <script src="jStorage/jstorage.js"></script>
+        <script src="stayingalive.js"></script>
+        <script>
+            $(function() {
+                $("#form1").stayAlive();
+
+                // Or, persist elements individually:
+                // $("#input1").stayAlive();
+                // $("#textarea1").stayAlive();
+            });
+        </script>
         </head>
     <body>
-        <div class='container'>
-            <div class='row'>
+        <div class="container">
+            <div class="row">
                 <h1>Storage test</h1>
-                <form id='form1'>
+                <form id="form1">
                     <fieldset>
                         <div id="legend" class="">
                             <legend class="">Form Name</legend>
@@ -30,7 +32,7 @@
 
                             <label class="control-label" for="input01">Text input</label>
                             <div class="controls">
-                                <input id='input1' placeholder="placeholder" class="input-xlarge" type="text">
+                                <input id="input1" placeholder="placeholder" class="input-xlarge" type="text">
                             </div>
                         </div>
 
