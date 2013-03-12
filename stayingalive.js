@@ -1,19 +1,24 @@
 /**
- * keepinput: Save input as it's typed to local storage, so if the page
+ * stayAlive: Save input as it's typed to local storage, so if the page
  * is reloaded, connection is lost, etc, the data is still there.
  *
  * Usage: Just just use as a jquery function e.g. $('#myobject').stayAlive();
  *
  * By default the saved version is discarded on form submit.
  *
- * @param {String} options.ttl: The expiration time for the saved values,
- *                              in milliseconds
+ * @param {String} options.scope: A string identifying this page, and
+ *                                distinguishing it from other pages on the
+ *                                same origin that may have inputs with the same
+ *                                ID's (default: `window.location.pathname`).
+ * @param {Number} options.ttl:   The expiration time for the saved values,
+ *                                in milliseconds
  */
 (function($) {
     $.fn.stayAlive = function(options) {
         options = $.extend(
             {},
             {
+                scope: window.location.pathname,
                 ttl: undefined // milliseconds
             },
             options || {}
@@ -38,9 +43,11 @@
                     "stayAlive: All preserved inputs must have an ID.");
             }
 
+            var key = options.scope + ":" + id;
+
             $(function() {//When the form is ready
                 //load the value from local storage
-                var prevValue = $.jStorage.get(id);
+                var prevValue = $.jStorage.get(key);
                 if (prevValue) {
                     $('#' + id).val(prevValue);
                 }
@@ -50,13 +57,13 @@
             $('#' + id).bind('input propertychange', function() {
                 var val = $('#' + id).val();
                 //save it
-                $.jStorage.set(id, val, {TTL: options.ttl});
+                $.jStorage.set(key, val, {TTL: options.ttl});
             });
 
             //When the form is submitted
             form.submit(function() {
                 //Remove the saved value for this field
-                $.jStorage.deleteKey(id);
+                $.jStorage.deleteKey(key);
             });
         }
 
