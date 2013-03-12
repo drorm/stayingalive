@@ -8,6 +8,7 @@ saved when a tab is closed by accident or the browser crashes. stayingalive.js i
 100% client side and with one line of javascript you can save a single field or
 all the input and textarea fields in a form.
 Works for multiple pages on your site.
+Demo: http://drorm.github.com/stayingalive/
 
 ## Usage
 
