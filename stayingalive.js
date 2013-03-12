@@ -1,63 +1,65 @@
 /**
  * keepinput: Save input as it's typed to local storage, so if the page
- * is reloaded, connection is lost, etc, the data is still there
- * Usage: Just just use as a jquery function e.g. $('#myobject').keepinput()
- * By default the saved version is discarded on form submit TODO: provide an override
- * TODO: provide expiration
- * @param {String} passedId : The id to use for this object. If no id is 
- * passed, the element needs to have an id
+ * is reloaded, connection is lost, etc, the data is still there.
+ *
+ * Usage: Just just use as a jquery function e.g. $('#myobject').stayAlive();
+ *
+ * By default the saved version is discarded on form submit.
+ *
+ * @param {String} options.ttl: The expiration time for the saved values,
+ *                              in milliseconds
  */
-(function( $ ) {
-		$.fn.keepinput = function(passedId) {
-			var id;
-			var form = null;
-			if (passedId) {
-				id = passedId; //TODO test
-			} else {
-				id = this.attr('id'); //TODO: no id error
-			}
-			var type = this.get(0).tagName;
-			if (type != 'FORM') {
-				form = $(this.closest('form'));
-				keepInputItem(id, form);
-			} else {
-				console.log('form');
-				form = this;
-				var elements = form.find("input, textarea").map(function(i, element) {
-					id = $(element).attr('id'); //TODO: no id error
-					keepInputItem(id, form);
-				});
-			}
+(function($) {
+    $.fn.stayAlive = function(options) {
+        options = $.extend(
+            {},
+            {
+                ttl: undefined // milliseconds
+            },
+            options || {}
+        );
 
+        var form = this.closest("form");
 
+        if (this.is("form")) {
+            this.find("input, textarea").each(function() {
+                keepInputItem($(this).prop("id"), form);
+            });
+        } else {
+            keepInputItem(this.prop("id"), form);
+        }
 
-			/*
-			 * Handle a specific input field
-			 */
-			function keepInputItem(id, form) {
-				$(document).ready(function() {//When the form is ready
-					//load the value from local storage
-					var prevValue = $.jStorage.get(id);
-					if (prevValue) {
-						$('#' + id).val(prevValue);
-					}
-				});
+        /*
+         * Handle a specific input field
+         */
+        function keepInputItem(id, form) {
+            if (!id) {
+                throw new Error(
+                    "stayAlive: All preserved inputs must have an ID.");
+            }
 
-				//Whenever there's a change to the field
-				$('#' + id).bind('input propertychage', function() {
-					var val = $('#' + id).val();
-					//save it
-					$.jStorage.set(id, val);
-				});
+            $(function() {//When the form is ready
+                //load the value from local storage
+                var prevValue = $.jStorage.get(id);
+                if (prevValue) {
+                    $('#' + id).val(prevValue);
+                }
+            });
 
-				//When the form is submitted
-				form.submit(function() {
-					//Remove the saved value for this field
-					$.jStorage.deleteKey(id);
-				});
-			}
+            //Whenever there's a change to the field
+            $('#' + id).bind('input propertychange', function() {
+                var val = $('#' + id).val();
+                //save it
+                $.jStorage.set(id, val, {TTL: options.ttl});
+            });
 
-			return(this);
-		};
-})( jQuery );
+            //When the form is submitted
+            form.submit(function() {
+                //Remove the saved value for this field
+                $.jStorage.deleteKey(id);
+            });
+        }
 
+        return this;
+    };
+})(jQuery);
