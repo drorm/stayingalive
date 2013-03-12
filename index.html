@@ -9,11 +9,55 @@
     <body>
         <div class="container">
             <div class="row">
-                <h1>Storage test</h1>
+                <h1>Staying Alive</h1>
+
+                <p class="lead">
+                    Prevent your users' hard-earned text from disappearing if
+                    they leave the page.
+                </p>
+
+                <h2>Usage</h2>
+
+                <pre>$("#my-form").stayAlive();</pre>
+
+                <p>
+                    That's really it. Each form element on the page requires an
+                    ID for the persistence to work. If you don't want to persist
+                    every input on a form, you can also call
+                    <code>stayAlive</code> on an individual input element.
+                </p>
+
+                <p>
+                    If you need additional control, <code>stayAlive</code>
+                    accepts an options object:
+                </p>
+
+                <dl>
+                    <dt>scope</dt>
+                    <dd>
+                        A string that identifies the current page, and
+                        distinguishes it from other pages on your domain.
+                        <i>(default: <code>window.location.pathname</code>)</i>
+                    </dd>
+                    <dt>ttl</dt>
+                    <dd>
+                        The maximum time, in milliseconds, for which a saved
+                        value will be kept.
+                    </dd>
+                </dl>
+
+                <h2>Example</h2>
+
+                <p>
+                    Type text in the form below, and then reload the page.
+                    You won't have lost anything! Submitting the form clears
+                    the stored values.
+                </p>
+
                 <form id="form1">
                     <fieldset>
                         <div id="legend" class="">
-                            <legend class="">Form Name</legend>
+                            <legend class="">A critically important form</legend>
                         </div>
                         <div class="control-group">
 
