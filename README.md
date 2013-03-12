@@ -15,7 +15,16 @@ Works for multiple pages on your site.
     $('#input1').stayingalive();//preserve this input field
     $('#textarea1').stayingalive();//preserve this textarea
 
-You *need* to assign a unique id to the fields or forms that are preserved. Class selectors are not supported since:
+##Params
+stayingalive() takes an object as an argument:
+{
+	scope: scope of the form. Defaults to  window.location.pathname(current URL)
+	ttl: how long to keep the info in local storage
+}
+
+
+
+You *need* to assign a unique id or pass an id as an argument to the fields or forms that are preserved. Class selectors are not supported since:
 
 1. A unique id is needed to save the field in the browser. 
 2. The script could generate a unique id based on position, but that's a fragile solution since moving fields around will result in wrong data showing in existing forms.
