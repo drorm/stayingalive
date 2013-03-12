@@ -4,15 +4,16 @@ Staying Alive
 Saves your form data client side between page reloads.
 
 Just like gmail you can now have the data typed in textareas and input fields
-saved when a tab is closed by accident or the browser crashes. keepinput.js is
+saved when a tab is closed by accident or the browser crashes. stayingalive.js is
 100% client side and with one line of javascript you can save a single field or
 all the input and textarea fields in a form.
+Works for multiple pages on your site.
 
 ## Usage
 
-    $('#form1').keepinput();//preserve all textareas and fields in the form
-    $('#input1').keepinput();//preserve this input field
-    $('#textarea1').keepinput();//preserve this textarea
+    $('#form1').stayingalive();//preserve all textareas and fields in the form
+    $('#input1').stayingalive();//preserve this input field
+    $('#textarea1').stayingalive();//preserve this textarea
 
 You *need* to assign a unique id to the fields or forms that are preserved. Class selectors are not supported since:
 
@@ -22,7 +23,7 @@ You *need* to assign a unique id to the fields or forms that are preserved. Clas
 
 ## Requirements
 
-In addition to keepinput.js you need:
+In addition to stayingalive.js you need:
 
 * jquery
 * json2.js (for legacy browser support)
