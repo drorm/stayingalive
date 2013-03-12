@@ -41,6 +41,8 @@ In addition to stayingalive.js you need:
 * jstorage.js
 
 Or you can get all of these from CDN
+```
 <script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20110223/json2.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jStorage/0.3.0/jstorage.min.js"></script>
+```
